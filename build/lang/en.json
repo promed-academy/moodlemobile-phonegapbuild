@@ -740,7 +740,7 @@
     "mm.user.newpicture": "New picture",
     "mm.user.phone1": "Phone",
     "mm.user.phone2": "Mobile phone",
-    "mm.user.roles": "Roles",
+     "mm.user.roles": "{{"roles"}}"  
     "mm.user.sendemail": "Email",
     "mm.user.student": "Student",
     "mm.user.teacher": "Non-editing teacher",
