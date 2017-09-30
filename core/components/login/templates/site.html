@@ -1,19 +1,42 @@
-<ion-view view-title="{{ 'mm.login.connecttomoodle' | translate }}">
-  <ion-nav-buttons side="secondary">
-      <button class="button button-icon ion-help-circled" ng-click="showHelp()" aria-label="{{ 'mm.core.help' | translate }}"></button>
-  </ion-nav-buttons>
-  <ion-content padding="true" id="mm-login-site" mm-state-class class="mm-center-view">
-    <form class="mm-view-content">
-      <div class="box">
-        <div class="text-center padding">
-          <img ng-src="img/logo.png" class="avatar-full  moodle-logo" role="presentation">
-        </div>
-        <p class="padding">{{ 'mm.login.newsitedescription' | translate }}</p>
-        <div class="list item item-input">
-          <input type="url" placeholder="{{ 'mm.login.siteaddress' | translate }}" ng-model="siteurl" mm-no-input-validation mm-auto-focus >
-        </div>
-        <button class="button button-block button-positive" ng-click="connect(siteurl)" ng-disabled="!siteurl">{{ 'mm.login.connect' | translate }}</button>
-      </div>
-    </form>
-  </ion-content>
+<ion-view view-title="{{ 'mm.login.login' | translate }}">
+    <ion-content mm-state-class padding="true" class="mm-center-view">
+        <mm-loading hide-until="pageLoaded" class="mm-view-content">
+            <div class="box">
+                <div class="item item-text-wrap text-center item-borderless">
+                    <!-- Show site logo or a default image. -->
+                    <img ng-if="logourl" ng-src="{{logourl}}" class="avatar-full" mm-external-content role="presentation">
+                    <img ng-if="!logourl" ng-src="img/logo.png" class="avatar-full moodle-logo" role="presentation">
+
+                    
+                </div>
+                <form>
+                    <ion-input class="list item item-input" ng-if="siteChecked && !isBrowserSSO">
+                        <input type="text" placeholder="{{ 'mm.login.username' | translate }}" ng-model="credentials.username" autocapitalize="none" autocorrect="off">
+                    </ion-input>
+                    <ion-input class="list item item-input mm-ioninput-password" ng-if="siteChecked && !isBrowserSSO">
+                        <input id="mm-login-credentials-password-input" name="password" type="password" placeholder="{{ 'mm.login.password' | translate }}" ng-model="credentials.password" mm-show-password>
+                    </ion-input>
+                    <button class="button button-block button-positive" ng-click="login()">{{ 'mm.login.loginbutton' | translate }}</button>
+                </form>
+
+                <div ng-if="identityProviders && identityProviders.length" class="padding-top list">
+                    <p>{{ 'mm.login.potentialidps' | translate }}</p>
+                    <a ng-repeat="provider in identityProviders" class="item item-icon-right item-text-wrap mm-oauth-icon" ng-click="oauthClicked(provider)" title="{{provider.name}}">
+                        <img ng-src="{{provider.iconurl}}" alt="{{provider.name}}">
+                        <span>{{provider.name}}</span>
+                        <i class="icon icon-accessory ion-chevron-right"></i>
+                    </a>
+                </div>
+
+                <div ng-if="canSignup">
+                    <div class="item item-text-wrap item-borderless">
+                        <p class="item-heading">{{ 'mm.login.firsttime' | translate }}</p>
+                        <p ng-if="authInstructions"><mm-format-text>{{authInstructions}}</mm-format-text></p>
+                    </div>
+                    <button class="button button-block" ui-sref="mm_login.email_signup({siteurl: siteurl})">{{ 'mm.login.startsignup' | translate }}</button>
+                </div>
+            </div>
+        </mm-loading>
+    </ion-content>
 </ion-view>
+
