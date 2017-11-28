@@ -10,9 +10,10 @@
     "wsservice" : "moodle_mobile_app",
     "wsextservice" : "local_mobile",
     "demo_sites": {},
+    "presets":{"url":"http://promedacademy.net/moodle30/", "username":""}
     "gcmpn": "694767596569",
     "customurlscheme": "moodlemobile",
-    "siteurl": "httsp://promedacademy.net/moodle30",
+    "siteurl": "httsp://promedacademy.net/moodle30/",
     "skipssoconfirmation": "false",
     "forcedefaultlanguage": "false",
     "privacypolicy": "https://moodle.org/mod/page/view.php?id=8148"
